@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput,View,StyleSheet,Alert } from "react-native";
+import { TextInput,View,StyleSheet,Alert,Text } from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Colors from "../utils/colors";
 import Title from "../components/ui/Title";
@@ -33,6 +33,7 @@ export default function StartGameScreen({onPickNumber}) {
         <View style = {styles.rootContainer}>
             <Title>Guess The Number</Title>
             <View style = {styles.inputContainer}>
+                <Text style = {styles.instructionText}>Enter A Number</Text>
                 <TextInput
                 style = {styles.numberInput}
                 maxLength={2}
@@ -74,7 +75,10 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         shadowOpacity: 0.25
     },
-
+    instructionText: {
+        color: Colors.accent500,
+        fontSize: 24
+    },
     numberInput: {
         height: 50,
         width: 50,
