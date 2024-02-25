@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert,View,StyleSheet } from "react-native"
+import { Alert,View,StyleSheet,Text } from "react-native"
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Title from "../components/ui/Title"
@@ -24,6 +24,7 @@ function generateRandomBetween(min, max, exclude) {
  export default function GameScreen({userNumber,onGameOver}) {
     const initialGuess = generateRandomBetween(1,100,userNumber)
     const [currentGuess,setCurrentGuess] = useState(initialGuess);
+    const [guessRounds,setGuessRounds] = useState([initialGuess])
 
     useEffect(() => {
         if (currentGuess === userNumber) {
@@ -35,6 +36,7 @@ function generateRandomBetween(min, max, exclude) {
         minBoundary = 1;
         maxBoundary = 100;
     },[])
+
     function nextGuessHandler(direction) { //direction => "lower" or "higher"
         if((direction === "lower" && currentGuess < userNumber) || 
            (direction === "higher" && currentGuess > userNumber)) {
@@ -48,7 +50,8 @@ function generateRandomBetween(min, max, exclude) {
             minBoundary = currentGuess + 1;
         }
         const newRandomNumber = generateRandomBetween(minBoundary,maxBoundary,currentGuess)
-        setCurrentGuess(newRandomNumber)
+        setCurrentGuess(newRandomNumber);
+        setGuessRounds(prevGuessRounds => [newRandomNumber,...prevGuessRounds]);
     }
     return (
         <View style={styles.screen}>
@@ -71,7 +74,9 @@ function generateRandomBetween(min, max, exclude) {
                     
                 </View>
             </Card>
-            {/*<View>LOG ROUNDS</View>*/}
+            <View>
+                {guessRounds.map((guessRound => <Text key = {guessRound}>{guessRound}</Text>))}
+            </View>
         </View>
     )
 }
