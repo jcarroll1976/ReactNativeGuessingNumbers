@@ -3,6 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font'
 import { useState } from 'react';
 import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
 
 import Colors from './utils/colors';
 
@@ -51,6 +52,8 @@ export default function App() {
   }
 
   return (
+    <>
+    <StatusBar style = "light" />
     <LinearGradient colors={[Colors.primary700,Colors.accent500]} style = {styles.rootScreen}>
       <ImageBackground 
         source={require("./assets/images/background.png")}
@@ -61,6 +64,7 @@ export default function App() {
         <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
         </ImageBackground>
     </LinearGradient>
+    </>
   );
 }
 
